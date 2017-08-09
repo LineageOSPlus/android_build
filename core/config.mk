@@ -93,6 +93,7 @@ include $(BUILD_SYSTEM)/pathmap.mk
 
 BUILD_COMBOS:= $(BUILD_SYSTEM)/combo
 
+# TODO
 CLEAR_VARS:= $(BUILD_SYSTEM)/clear_vars.mk
 BUILD_HOST_STATIC_LIBRARY:= $(BUILD_SYSTEM)/host_static_library.mk
 BUILD_HOST_SHARED_LIBRARY:= $(BUILD_SYSTEM)/host_shared_library.mk
