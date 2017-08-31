@@ -2170,6 +2170,22 @@ ifneq ($(filter $(MAKECMDGOALS),target-files-package),)
 $(call dist-for-goals, target-files-package, $(BUILT_TARGET_FILES_PACKAGE))
 endif
 
+.PHONY: docker-android-support
+ifeq ($(LINEAGEOSPLUS_USE_LINARO_TOOLCHAIN),true)
+docker-android-support:
+	$(info Starting to build Android support for Docker glibc containers...)
+	make -C system/core/base clean install DESTDIR=$(TARGET_DOCKER_OUT)
+	make -C system/core/libutils clean install DESTDIR=$(TARGET_DOCKER_OUT)
+	make -C system/core/libcutils clean install DESTDIR=$(TARGET_DOCKER_OUT)
+	make -C system/core/liblog clean install DESTDIR=$(TARGET_DOCKER_OUT)
+	make -C frameworks/native/libs/binder clean install DESTDIR=$(TARGET_DOCKER_OUT)
+	make -C frameworks/native/cmds/dumpsys clean install DESTDIR=$(TARGET_DOCKER_OUT)
+	$(info Docker support packages installed to $(TARGET_DOCKER_OUT))
+else
+docker-android-support:
+	$(error Please source a compatible envsetup for your standalone Linaro toolchain!)
+endif
+
 ifeq ($(build_ota_package),true)
 # -----------------------------------------------------------------
 # OTA update package
